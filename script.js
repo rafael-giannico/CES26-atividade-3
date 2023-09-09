@@ -14,7 +14,7 @@ $(document).ready(function() {
     });
 
     $("#remove").click(function() {
-        if (selectedNode) {
+        if (selectedNode && !$(selectedNode).hasClass("root")) {
             $(selectedNode).remove();
             selectedNode = null;
         }
@@ -27,9 +27,9 @@ $(document).ready(function() {
         }
     });
 
-    $("#changeText").on("input", function() {
+    $("#processTextChange").click(function() {
         if (selectedNode) {
-            const newText = $(this).val();
+            const newText = $("#changeText").val();
             $(selectedNode).contents().first()[0].nodeValue = newText;
         }
     });
