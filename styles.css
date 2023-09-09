@@ -1,0 +1,27 @@
+.node {
+    border: 1px solid black;
+    padding: 10px;
+    margin-top: 10px;
+    position: relative;
+}
+
+.node::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    border-left: 1px solid black;
+    height: 10px;
+}
+
+.node:first-child::before {
+    display: none;
+}
+
+.children {
+    margin-left: 20px;
+}
+
+.selected {
+    background-color: yellow;
+}

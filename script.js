@@ -1,38 +1,36 @@
 $(document).ready(function() {
-    let selectedElement = null;
+    let selectedNode = null;
+    let nodeIdCounter = 2;
 
-    // Selecionar elemento com o mouse
-    $('#domTree').on('click', 'div', function(e) {
-        e.stopPropagation(); // Para evitar a propagação do evento para elementos pai
+    $(".tree").on("click", ".node", function(event) {
+        event.stopPropagation();
 
-        if (selectedElement) {
-            $(selectedElement).removeClass('selected');
+        if (selectedNode) {
+            $(selectedNode).removeClass("selected");
         }
 
-        selectedElement = this;
-        $(selectedElement).addClass('selected');
+        selectedNode = this;
+        $(this).addClass("selected");
     });
 
-    // Remover elemento
-    $('#remove').click(function() {
-        if (selectedElement) {
-            $(selectedElement).remove();
-            selectedElement = null;
-        }
-    });
-
-    // Adicionar filho ao elemento selecionado
-    $('#add').click(function() {
-        if (selectedElement) {
-            $(selectedElement).append('<div>Novo Elemento</div>');
+    $("#remove").click(function() {
+        if (selectedNode) {
+            $(selectedNode).remove();
+            selectedNode = null;
         }
     });
 
-    // Mudar propriedades do elemento (neste caso, apenas o texto)
-    $('#applyChange').click(function() {
-        if (selectedElement) {
-            const newValue = $('#changeProp').val();
-            $(selectedElement).text(newValue);
+    $("#addChild").click(function() {
+        if (selectedNode) {
+            const newNode = $(`<div class="node" data-id="${nodeIdCounter++}">Novo Nó<div class="children"></div></div>`);
+            $(selectedNode).find("> .children").append(newNode);
+        }
+    });
+
+    $("#changeText").on("input", function() {
+        if (selectedNode) {
+            const newText = $(this).val();
+            $(selectedNode).contents().first()[0].nodeValue = newText;
         }
     });
 });
